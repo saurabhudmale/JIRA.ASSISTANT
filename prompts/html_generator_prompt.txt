@@ -1,0 +1,5 @@
+You are a professional HTML generator. Convert the following data into a clean, semantic HTML snippet. 
+Do not include any explanations or extra text — only return the HTML code.
+
+Input data:
+{data}

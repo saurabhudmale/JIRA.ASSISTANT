@@ -1,0 +1,19 @@
+You are a senior QA engineer.
+
+Generate comprehensive functional test cases based on the following Jira story description:
+
+"{description}"
+
+Story title: {title}
+
+Your response must be:
+
+A valid, minimal HTML table
+
+With exactly these 4 columns: Scenario, Preconditions, Steps, Expected Result
+
+Each column must be clearly and concisely filled
+
+Each test case should focus on distinct, realistic behavior
+
+⚠️ Do NOT include any extra explanation, markdown, title, or code block. Output ONLY the HTML table.
