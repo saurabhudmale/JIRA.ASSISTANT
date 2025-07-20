@@ -1,11 +1,16 @@
 import requests
 import streamlit as st
 
-JIRA_BASE_URL = st.session_state["domain"]
-JIRA_EMAIL = st.session_state["email"]
-JIRA_API_TOKEN = st.session_state["api_key"]
+st.set_page_config(layout="wide")
 
-auth = (JIRA_EMAIL, JIRA_API_TOKEN)
+if "domain" not in st.session_state or "email" not in st.session_state or "api_key" not in st.session_state:
+    st.error("Please set your Jira domain, email, and API key in the **JIRA Credentials** page.")
+    st.stop()
+else:
+    JIRA_BASE_URL = st.session_state["domain"]
+    JIRA_EMAIL = st.session_state["email"]
+    JIRA_API_TOKEN = st.session_state["api_key"]
+    auth = (JIRA_EMAIL, JIRA_API_TOKEN)
 
 def fetch_jira_ticket(ticket_id):
     url = f"{JIRA_BASE_URL}/rest/api/latest/issue/{ticket_id}"

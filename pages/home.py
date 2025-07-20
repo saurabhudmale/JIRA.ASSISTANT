@@ -10,7 +10,7 @@ st.markdown("Welcome to your **AI-powered Jira Assistant**! This app helps you s
 if gpt_request(""):
     st.success("✅ Intelligence Awakened: AI is now online and ready to assist.")
 else:
-    st.error("NOTICE: Our AI system is currently unavailable. We apologize for the inconvenience and are working to resolve the issue as soon as possible.")
+    st.error("⚠️ Our AI system is currently unavailable. We are working to resolve the issue as soon as possible.")
 
 st.subheader("📋 Overview")
 st.markdown("""
