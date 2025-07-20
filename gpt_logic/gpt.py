@@ -1,23 +1,26 @@
-import requests
 import os
+from groq import Groq
+from dotenv import load_dotenv
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+load_dotenv()
 
 def gpt_request(prompt):
+    try:
+        client = Groq(
+            api_key=os.getenv('GROQ_API_KEY'),
+        )
+            
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            model="llama-3.3-70b-versatile",
+        )
 
-    url = "https://api.groq.com/openai/v1/chat/completions"
-
-    headers = {
-        "Authorization": f"Bearer {GROQ_API_KEY}",
-        "Content-Type": "application/json"
-    }
-
-    data = {
-        "model": "llama3-70b-8192",
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.3
-    }
-
-    response = requests.post(url, headers=headers, json=data)
-
-    return response.json()['choices'][0]['message']['content']
+        return chat_completion.choices[0].message.content
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False

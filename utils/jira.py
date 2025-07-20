@@ -1,12 +1,14 @@
-import os
 import requests
-from dotenv import load_dotenv
+import streamlit as st
 
-load_dotenv()
+JIRA_BASE_URL = st.session_state["domain"]
+JIRA_EMAIL = st.session_state["email"]
+JIRA_API_TOKEN = st.session_state["api_key"]
+
+auth = (JIRA_EMAIL, JIRA_API_TOKEN)
 
 def fetch_jira_ticket(ticket_id):
-    url = f"{os.getenv('JIRA_BASE_URL')}/rest/api/latest/issue/{ticket_id}"
-    auth = (os.getenv("JIRA_EMAIL"), os.getenv("JIRA_API_TOKEN"))
+    url = f"{JIRA_BASE_URL}/rest/api/latest/issue/{ticket_id}"
     headers = {"Accept": "application/json"}
 
     res = requests.get(url, auth=auth, headers=headers)
@@ -21,9 +23,8 @@ def fetch_jira_ticket(ticket_id):
     return title, description
 
 def search_jira(query):
-    url = f"{os.getenv('JIRA_BASE_URL')}/rest/api/latest/search"
+    url = f"{JIRA_BASE_URL}/rest/api/latest/search"
     params = { "jql": query }
-    auth = (os.getenv("JIRA_EMAIL"), os.getenv("JIRA_API_TOKEN"))
     headers = {"Accept": "application/json"}
 
     res = requests.get(url, params=params, auth=auth, headers=headers)
